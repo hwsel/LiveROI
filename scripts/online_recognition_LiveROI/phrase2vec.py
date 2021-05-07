@@ -11,7 +11,7 @@ from gensim.models import word2vec
 
 '''
 
-
+   
 
 # Change this to your own path.
 pathToBinVectors = 'GoogleNews-vectors-negative300.bin'
