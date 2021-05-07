@@ -52,9 +52,9 @@ make runtest
 
 The word analysis is carried out by the following source code:
 
-'''
+```
 \scripts\online_recognition_LiveROI\phrase2vec.py
-'''
+```
 
 In the LiveROI project code, this file should be imported.
 
