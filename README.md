@@ -12,13 +12,29 @@ This is the source code for our LiveROI
 
 The core part of this project is action recognition based on 3D CNN model. This neural network model is based on Caffe.
 
+- The files:
+
+```
+
+/caffe_3d
+
+/data_list
+
+/doc_files
+
+/models_ECO_Full
+
+/models_ECO_Lite
+
+```
+
 - Install the dependencies with
 
 ```
 for req in $(cat requirements.txt); do pip install $req; done
 ```
 
-Compile 
+- Compile 
 
 ```
 cp Makefile.config.example Makefile.config
@@ -27,6 +43,8 @@ make all
 make test
 make runtest
 ```
+
+
 
 ## Word Embedding
 
