@@ -48,7 +48,30 @@ make runtest
 
 ## Word Embedding
 
+- Files:
 
+The word analysis is carried out by the following source code:
+
+'''
+\scripts\online_recognition_LiveROI\phrase2vec.py
+'''
+
+In the LiveROI project code, this file should be imported.
 
 
 ## LiveROI code:
+
+
+- Files:
+
+The following file shows the basic demo of how the action recognition works.
+
+```
+\scripts\online_recognition_LiveROI\MultiThreadActionRecognition.py
+```
+
+The following file shows the LiveROI based on the action recognition and word embedding.
+
+```
+\scripts\online_recognition_LiveROI\LiveROI.py
+```
