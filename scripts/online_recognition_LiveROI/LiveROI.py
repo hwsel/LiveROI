@@ -13,7 +13,7 @@ fix action detection result format error: delete "\'" problem
 """script for predicting labels from live feed"""
 import sys
 
-sys.path.append('/home/kora/Downloads/ECO-efficient-video-understanding-master/caffe_3d/python')
+sys.path.append('your path')
 import numpy as np
 import caffe
 import cv2
@@ -101,9 +101,7 @@ def userLoca_One(FrameRate, FileNameStart, i):
     """
 
     '''
-    # test and collect video info 
-    video_name = '/home/kora/Downloads/ECO-efficient-video-understanding-master/scripts/online_recognition/UserData/Video/1-1-Conan Gore FlyB.mp4'
-    # video_name = '/home/kora/Downloads/1-7-Cooking Battle.mp4'
+
     cap = cv2.VideoCapture(video_name)
     FrameRate = int(round(cap.get(5)))      # 29.9 fps changed to 30
     TotalFrames = cap.get(7)
@@ -118,58 +116,32 @@ def userLoca_One(FrameRate, FileNameStart, i):
         TimeStamp is for syncronization
 
     '''
-    # /home/kora/Downloads/ECO-efficient-video-understanding-master/scripts/online_recognition/UserData/Location
     VideoName = "video_0"
-    DirectorName = "/home/kora/Downloads/ECO-efficient-video-understanding-master/scripts/online_recognition/UserData/Location/"
+    DirectorName = "\"
     i = 1
-    # UserFile = FileNameStart + str(i) + ".csv"
+    
     UserFile = DirectorName + VideoName + '_' + str(i) + ".csv"
     Userdata = []
     flagTime = 1
     TimeStamp = []
     with open(UserFile) as csvfile:
-        csv_reader = csv.reader(csvfile)  # 使用csv.reader读取csvfile中的文件
-        birth_header = next(csv_reader)  # 读取第一行每一列的标题
-        for row in csv_reader:  # 将csv 文件中的数据保存到Userdata中
+        csv_reader = csv.reader(csvfile)  
+        birth_header = next(csv_reader)  
+        for row in csv_reader:  
             Userdata.append(row[1:])
             if flagTime == 1:
                 TimeStamp.append(row[0])
     flagTime = 0
-    Userdata = [[float(x) for x in row] for row in Userdata]  # 将数据从string形式转换为float
-    Userdata = np.array(Userdata)  # 将list数组转化成array数组便于查看数据结构
+    Userdata = [[float(x) for x in row] for row in Userdata] 
+    Userdata = np.array(Userdata)  
     TOT_Len = len(Userdata)
     print(TOT_Len)
     print(Userdata.shape)
     NUmberCount = 0
+    #just in one second
     while NUmberCount < TOT_Len:
-        # NUmberCount+=1
-        UserIn1s = []
-        UserIn1sR = []
-        Ind = 0
-        while PreTime > CurTime:
-            strA = TimeStamp[j].split(':')
-            # print(strA[2])
-            # Ind=Ind+1
-            # print([Ind,j])
-            CurTime = math.floor(float(strA[2]))
-            if CurTime == 0 and PreTime == 60:
-                break
-            UserAll = []
-            for k in range(0, A):
-                # print(k,j)
-                x = ProceList[k][j][1]
-                y = ProceList[k][j][2]
-                z = ProceList[k][j][3]
-                w = ProceList[k][j][4]
-                H, W = LocationCalculate(x, y, z, w)
-                IH = math.floor(H * FrameHeightT)
-                IW = math.floor(W * FrameWidthT)
-                UserAll.append([IW, IH])
-                # print(IW,IH)
-            j = j + 1
-            UserIn1s.append(UserAll)
-        FrameCount = 0
-        PreTime = CurTime + 1
+        #load your data to UserAll
+        UserAll.append(UDATA)
 
 
 def GetActionFromeResult_Single(Predict_result_Top5):
@@ -199,29 +171,27 @@ def GetActionFromeResult_SingleB(Predict_result_Top5,i):
     # print (BB)
     return BB
 
-def userLoca_All():
+def Demoheatmapillustration():
     ProceList = []
     VideoUserName = "video_3_"
     TimeStamp = []
     flagTime = 1
 
-    '''
-    读取用户历史数据 48 名用户  A设定用户数量 A=49来加入48 用户 A=1 只读取一个用户数据
-    '''
+    
     A = 1  # 47                    #49
     for i in range(1, A + 1):  # 49
         UserFile = VideoUserName + str(i) + ".csv"
         Userdata = []
         with open(UserFile) as csvfile:
-            csv_reader = csv.reader(csvfile)  # 使用csv.reader读取csvfile中的文件
-            birth_header = next(csv_reader)  # 读取第一行每一列的标题
-            for row in csv_reader:  # 将csv 文件中的数据保存到Userdata中
+            csv_reader = csv.reader(csvfile)  
+            birth_header = next(csv_reader)  
+            for row in csv_reader:  
                 Userdata.append(row[1:])
                 if flagTime == 1:
                     TimeStamp.append(row[0])
         flagTime = 0
-        Userdata = [[float(x) for x in row] for row in Userdata]  # 将数据从string形式转换为float
-        Userdata = np.array(Userdata)  # 将list数组转化成array数组便于查看数据结构
+        Userdata = [[float(x) for x in row] for row in Userdata]  
+        Userdata = np.array(Userdata)  
         ProceList.append(Userdata)
 
     UserOverall = []
@@ -240,44 +210,12 @@ def userLoca_All():
         UserIn1s = []
         UserIn1sR = []
         Ind = 0
+        # load your user data to UserAll
         while PreTime > CurTime:
-            strA = TimeStamp[j].split(':')
-            # print(strA[2])
-            # Ind=Ind+1
-            # print([Ind,j])
-            CurTime = math.floor(float(strA[2]))
-            if CurTime == 0 and PreTime == 60:
-                break
-            UserAll = []
-            for k in range(0, A):
-                # print(k,j)
-                x = ProceList[k][j][1]
-                y = ProceList[k][j][2]
-                z = ProceList[k][j][3]
-                w = ProceList[k][j][4]
-                H, W = LocationCalculate(x, y, z, w)
-                IH = math.floor(H * FrameHeightT)
-                IW = math.floor(W * FrameWidthT)
-                UserAll.append([IW, IH])
-                # print(IW,IH)
-            j = j + 1
-            UserIn1s.append(UserAll)
-        FrameCount = 0
-        PreTime = CurTime + 1
+            UserAll.append(UDATA)
 
-        # 加入1s内用户抽样，原用户并不是一秒30个
-        if len(UserIn1s) < 30:
-            for k in range(0, len(UserIn1s)):
-                UserIn1sR.append(UserIn1s[k])
-            for k in range(len(UserIn1s) - 1, 30):
-                UserIn1sR.append(UserIn1s[len(UserIn1s) - 1])
-        else:
-            for k in range(0, 30):
-                UserIn1sR.append(UserIn1s[k])
-            # UserIn1s.append(UserAllR)
-            # =========test
-            # label[4] = 1
-            # label[6] = 1
+        
+        
         label = []
         for i in range(len(UserIn1sR)):
             label.append(check_box(UserIn1sR[i][0][0], UserIn1sR[i][0][1]))
@@ -287,8 +225,7 @@ def userLoca_All():
         print'=='
 
 
-# 整理完每一帧的用户视角之后，播放一秒内的每一帧
-# ================================
+
 
 class PhraseVector:
     def __init__(self, phrase):
@@ -329,18 +266,6 @@ class PhraseVector:
             cosine_similarity = 0
         return cosine_similarity
 
-
-'''
-# 行为识别的核心模块，此为多线程版本
-# 多线程版本中返回结果直接写入数组中
-# 多线程版本中输入参数主要添加i和j
-使用的数组有 （函数开始的时候完成初始化）
- Predict_result = []  普通列表
-Predict_result_Score=[]     普通列表
-Predict_result_Top5 = []    类型是列表的列表
-Predict_result_Top5_Score = []      类型是列表的列表
-控制变量 flag_Count 初始为0,线程中累加
-'''
 
 
 def Prediction_Core_Thread(dims, running_frames, algo, image_mean, net, num_categories, index_to_label, Index_l):
@@ -387,9 +312,7 @@ def Prediction_Core_Thread(dims, running_frames, algo, image_mean, net, num_cate
     predict_top5_ind = np.argpartition(predictions_mean, -5)[-5:]
 
     top5_label = [index_to_label[int(x)] for x in predict_top5_ind]
-    '''
-        获取结果后将结果保存到公共数组里面
-    '''
+    
     del Predict_result_Top5[Index_l][0]
     del Predict_result_Top5_Score[Index_l][0]
     Predict_result_Top5[Index_l].append(top5_label)
@@ -489,11 +412,10 @@ def online_predict(mean_file, model_def_file, model_file, classes_file, num_cate
             TileStatus.append(0)
 
 
-    # video_name = '/home/kora/Downloads/2-5-FightingB.mp4'
-    # 2-2-VoiceToyB 2-1-KoreanB 1-1-Conan Gore FlyB 2-4-FemaleBasketballB 2-8-reloadedB
-    video_name = '/home/kora/Downloads/ECO-efficient-video-understanding-master/scripts/online_recognition/UserData/Video/1-7-Cooking BattleB.mp4'
-    # video_name = '/home/kora/Downloads/1-7-Cooking Battle.mp4'
-    video_name_head = '/home/kora/Downloads/ECO-efficient-video-understanding-master/scripts/online_recognition/UserData/Video/'
+    
+    video_name = '1-7-Cooking BattleB.mp4'
+    
+    video_name_head = ''
     Video_FileList = ["2-8-reloadedB", "2-2-VoiceToyB", "1-1-Conan Gore FlyB", "1-2-FrontB", "1-6-FallujaB",
                       "1-7-Cooking BattleB", "1-8-FootballB",
                       "1-9-RhinosB", "2-1-KoreanB", "2-3-RioVRB", "2-4-FemaleBasketballB", "2-5-FightingB",
@@ -502,9 +424,7 @@ def online_predict(mean_file, model_def_file, model_file, classes_file, num_cate
     print( Video_FileList[VideoINDX])
     print(VideoINDX, Video_FileList[12],len(Video_FileList))
     VideoNameFile = video_name_head + Video_FileList[VideoINDX] + '.mp4'
-    for k in range(23):
-        print(k)
-    return True
+    
 
 
 
@@ -544,7 +464,7 @@ def online_predict(mean_file, model_def_file, model_file, classes_file, num_cate
     csv_writeABF_Save.writerow(ACCbadRestul)
 
 
-    # check the parameters of get frome:  https://blog.csdn.net/qhd1994/article/details/80238707
+    # check the parameters of get frome:  
     print("===============frame width============")
     print (W_Frame)
     print("===============frame height============")
@@ -566,9 +486,7 @@ def online_predict(mean_file, model_def_file, model_file, classes_file, num_cate
     last_16_frames = []
     initial_predictions = np.zeros((num_categories, 1))
 
-    # for 16 frames group
-    # last_16_frames 原来用于存放十六个小图构成一个cube，现在每帧有多个小块，每一个小块，每十六帧要存入一个last_16_frames 中，
-    # 于是， 创建last_16_frames_List 存放针对每一个小块的十六个小块。每凑够十六次之后要在处理代码部分中重置清零
+   
     last_16_frames_List = []
     for i in range(N_tile):
         for j in range(N_tile):
@@ -589,7 +507,7 @@ def online_predict(mean_file, model_def_file, model_file, classes_file, num_cate
         FrameCount = FrameCount + 1
         Whole_Frame = frame.copy()
         # frame = frame[3*256:4*256+0,5*340+150:6*340+150]
-        # 每一帧 根据tile的数量分割成子块。Frame_List 用于存放一帧内的每个小块
+        
         Frame_List = []
         for i in xrange(N_tile):
             for j in xrange(N_tile):
@@ -636,8 +554,7 @@ def online_predict(mean_file, model_def_file, model_file, classes_file, num_cate
         # img to img_List
         # Total NO = N_tile * N_tile
         img_List = []
-        # 当进行多线程时，以上代码仅处理一个小块，现在我们通过列表处理没一个小块，首先需要一个列表来存储这些
-        # 使用 last_16_frames_List
+    
         for i in xrange(N_tile):
             for j in xrange(N_tile):
                 # img_List.append(cv2.resize(Frame_List[i*N_tile+j], dims[1::-1]))
@@ -646,17 +563,7 @@ def online_predict(mean_file, model_def_file, model_file, classes_file, num_cate
         if frame_counter == (batch_size * 6):
             frame_counter = 0
         frame_counter = frame_counter + 1
-        '''=================================================================================================
-        step 1：  当收集十六帧的数据之后，每一帧中每一块凑齐16个小图后存入列表running_frames_T中。调用Prediction_Core来干活
-
-        step 2：  加入多线程支持  原来的PredictionCore改版，新版直接在函数中写入数组中。
-         使用的数组有 （函数开始的时候完成初始化）
-         Predict_result = []  普通列表
-        Predict_result_Score=[]     普通列表
-        Predict_result_Top5 = []    类型是列表的列表
-        Predict_result_Top5_Score = []      类型是列表的列表
-        控制变量 flag_Count 初始为0,线程中累加
-        =================================================================================================='''
+        
         flag_Count = 0
         if (frame_counter % batch_size == 0):
             Buffer_Count += 1
@@ -694,32 +601,8 @@ def online_predict(mean_file, model_def_file, model_file, classes_file, num_cate
                             Flag_W = True
                 flagIn = 0  # pass
 
-            '''
-                此处，各线程已经完成对每一块视频的行为识别处理
-                技术细节（tile×tile 块， 每两秒16帧）
-                接下来的代码块实现对结果的分析。完成基于行为识别的视角预测
-                Predict_result_Top5 = []
-                Predict_result_Top5_Score = []
-            '''
-            '''
-            print ("========================================================")
-            for i in range(N_tile):
-                for j in range(N_tile):
-                    # 打印出所有的结果检查
-                    # print(Predict_result_Top5[i * N_tile + j][0],Predict_result_Top5_Score[i * N_tile + j][0],i,j)
-                    # 针对2,2号块进行检查
-                    if i == 2 and j == 2:
-                        print(
-                        Predict_result_Top5[i * N_tile + j][0][2], Predict_result_Top5_Score[i * N_tile + j][0][2], i,
-                        j)
-                        print(
-                        Predict_result_Top5[i * N_tile + j][0], Predict_result_Top5_Score[i * N_tile + j][0], i, j)
-                        action = GetActionFromeResult_Single(Predict_result_Top5[i * N_tile + j])
-                        # print ("Action is: ", action)
-                        print (action)
-
-            print ("========================================================")
-            '''
+        
+            
 
 
             last_16_frames_List = []
