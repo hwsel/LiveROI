@@ -734,6 +734,11 @@ def online_predict(mean_file, model_def_file, model_file, classes_file, num_cate
 
 
 if __name__ == "__main__":
+    
+    '''===========================
+    Work done in 2019 and the author is no longer working on this
+    For further discussion please send email to fengx17@miamioh.edu
+    ==========================='''
     TestVideoFlow = False
     if TestVideoFlow == True:
         Name = "a"
